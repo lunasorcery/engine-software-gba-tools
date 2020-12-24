@@ -1,0 +1,23 @@
+version: 2.1
+executors:
+  exectr:
+    docker:
+      - image: lunasorcery/meson-template:0.0.1
+
+jobs:
+  build:
+    executor: exectr
+    steps:
+      - checkout
+      - run:
+          name: Configure our milkshake
+          command: meson setup build
+      - run:
+          name: Construct our milkshake
+          command: meson compile -C build
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
